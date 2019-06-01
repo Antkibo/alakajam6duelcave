@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#222a5c" nextlayerid="3" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#222a5c" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="35" columns="7">
   <image source="tileset.png" width="112" height="80"/>
+ </tileset>
+ <tileset firstgid="36" name="player_idle" tilewidth="10" tileheight="10" tilecount="4" columns="4">
+  <image source="../assets/player_idle.png" width="40" height="10"/>
  </tileset>
  <layer id="1" name="Tiles" width="22" height="13">
   <data encoding="csv">
@@ -18,6 +21,23 @@
 2,2147483665,2147483649,5,6,8,9,9,9,9,9,9,9,2147483656,6,2147483653,17,2,2,2,2,2,
 9,9,2147483656,12,13,15,16,16,16,16,16,16,16,2147483663,13,2147483660,9,9,9,9,9,9,
 16,16,2147483663,19,20,22,22,22,22,22,22,22,22,22,20,2147483667,16,16,16,16,16,16
+</data>
+ </layer>
+ <layer id="4" name="Player" width="22" height="13">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
 </map>
