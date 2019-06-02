@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<<<<<<< HEAD
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#222a5c" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="35" columns="7">
+  <image source="tileset.png" width="112" height="80"/>
+  <tile id="7">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+=======
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#222a5c" nextlayerid="5" nextobjectid="1">
+=======
 <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="1">
+>>>>>>> origin/master
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="70" columns="7">
   <image source="tileset.png" width="112" height="160"/>
  </tileset>
@@ -8,6 +67,7 @@
  </tileset>
  <tileset firstgid="75" name="turtle_idle" tilewidth="10" tileheight="10" tilecount="4" columns="4">
   <image source="../assets/turtle_idle.png" width="40" height="10"/>
+>>>>>>> origin/master
  </tileset>
  <tileset firstgid="79" name="background" tilewidth="352" tileheight="208" tilecount="1" columns="1">
   <image source="../assets/background.png" width="352" height="208"/>
