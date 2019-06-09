@@ -1,0 +1,44 @@
+{
+    "anims": [
+        {
+            "key": "float",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "carrot",
+                    "frame": "powerup_0"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_1"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_2"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_3"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_4"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_5"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_6"
+                },
+                {
+                    "key": "carrot",
+                    "frame": "powerup_7"
+                }
+            ]
+        }
+    ]
+}

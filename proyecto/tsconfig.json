@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "amd",
+        "watch": true,
+        "sourceMap": true,
+        "outFile": "game.js",
+        "esModuleInterop": true
+    }
+}

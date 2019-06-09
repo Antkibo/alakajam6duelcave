@@ -1,0 +1,333 @@
+{
+    "frames": [
+        {
+            "filename": "turtle_idle_0",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_idle_1",
+            "frame": {
+                "x": 10,
+                "y": 0,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_idle_2",
+            "frame": {
+                "x": 20,
+                "y": 0,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_idle_3",
+            "frame": {
+                "x": 30,
+                "y": 0,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_hit_0",
+            "frame": {
+                "x": 40,
+                "y": 0,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_hit_1",
+            "frame": {
+                "x": 0,
+                "y": 10,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_hit_2",
+            "frame": {
+                "x": 10,
+                "y": 10,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_0",
+            "frame": {
+                "x": 20,
+                "y": 10,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_1",
+            "frame": {
+                "x": 30,
+                "y": 10,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_2",
+            "frame": {
+                "x": 40,
+                "y": 10,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_3",
+            "frame": {
+                "x": 0,
+                "y": 20,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_4",
+            "frame": {
+                "x": 10,
+                "y": 20,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_5",
+            "frame": {
+                "x": 20,
+                "y": 20,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_6",
+            "frame": {
+                "x": 30,
+                "y": 20,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_7",
+            "frame": {
+                "x": 40,
+                "y": 20,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_8",
+            "frame": {
+                "x": 0,
+                "y": 30,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_9",
+            "frame": {
+                "x": 10,
+                "y": 30,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_10",
+            "frame": {
+                "x": 20,
+                "y": 30,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_lose_11",
+            "frame": {
+                "x": 30,
+                "y": 30,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_0",
+            "frame": {
+                "x": 40,
+                "y": 30,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_1",
+            "frame": {
+                "x": 0,
+                "y": 40,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_2",
+            "frame": {
+                "x": 10,
+                "y": 40,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_3",
+            "frame": {
+                "x": 20,
+                "y": 40,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_4",
+            "frame": {
+                "x": 30,
+                "y": 40,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "turtle_walk_5",
+            "frame": {
+                "x": 40,
+                "y": 40,
+                "w": 10,
+                "h": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

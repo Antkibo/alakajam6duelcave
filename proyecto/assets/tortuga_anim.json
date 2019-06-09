@@ -1,0 +1,136 @@
+{
+    "anims": [
+        {
+            "key": "tort_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_idle_0"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_idle_1"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_idle_2"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_idle_3"
+                }
+            ]
+        },
+        {
+            "key": "tort_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_0"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_1"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_2"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_3"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_4"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_walk_5"
+                }
+            ]
+        },
+        {
+            "key": "tort_lose",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_0"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_1"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_2"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_3"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_4"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_5"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_6"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_7"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_8"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_9"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_10"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_lose_11"
+                }
+            ]
+        },
+        {
+            "key": "tort_hit",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_hit_0"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_hit_1"
+                },
+                {
+                    "key": "tortuga",
+                    "frame": "turtle_hit_2"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,120 @@
+{
+    "anims": [
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bugs",
+                    "frame": "player_idle_0"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_idle_1"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_idle_2"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_idle_3"
+                }
+            ]
+        },
+        {
+            "key": "jump",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bugs",
+                    "frame": "player_jump_0"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_jump_1"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_jump_2"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_jump_3"
+                }
+            ]
+        },
+        {
+            "key": "run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bugs",
+                    "frame": "player_run_0"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_1"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_2"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_3"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_4"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_5"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_6"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_run_7"
+                }
+            ]
+        },
+        {
+            "key": "death",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bugs",
+                    "frame": "player_death_0"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_death_1"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_death_2"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_death_3"
+                },
+                {
+                    "key": "bugs",
+                    "frame": "player_death_4"
+                }
+            ]
+        }
+    ]
+}
