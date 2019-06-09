@@ -19,7 +19,7 @@ module Carrot {
             /////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////
 
-            this.load.setPath('../assets/');
+            this.load.setPath('./assets/');
             // Sprites
                 // Player
                 this.load.json('bugs_anim', 'bugs_anim.json');

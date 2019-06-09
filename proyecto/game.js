@@ -153,7 +153,7 @@ var Carrot;
             /////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////
-            this.load.setPath('../assets/');
+            this.load.setPath('./assets/');
             // Sprites
             // Player
             this.load.json('bugs_anim', 'bugs_anim.json');
@@ -284,6 +284,7 @@ var Carrot;
             if (!this.data.get('levelCounter')) {
                 this.data.set('levelCounter', 1);
             }
+            this.data.set('tempCarrotScore', 0);
             // Font
             this.font = this.cache.json.get('font_json');
             this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
@@ -341,6 +342,9 @@ var Carrot;
             this.player = new Carrot.Player(this, this.respawn.x, this.respawn.y, 'bugs');
             // Start Level
             this.startLevel();
+            // Score
+            this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
+            this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
             // Events
             this.registry.events.once('beatLevel', () => {
                 this.audio.win.play();
@@ -633,14 +637,34 @@ var Carrot;
             }, [], this);
             this.time.delayedCall(2000, () => {
                 this.data.values.levelCounter++;
+                this.data.values.levelScore++;
+                this.data.values.carrotScore += this.data.values.tempCarrotScore;
                 this.data.values.tortleSpeed += 2.5;
                 this.restartScene();
             }, [], this);
         }
         gotCarrot(element1, element2) {
             element2.destroy();
-            this.data.values.carrotScore++;
+            this.data.values.tempCarrotScore++;
+            this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));
             this.audio.carrot.play();
+            this.tortle.body.anims.play('tort_hit', true);
+            if (this.tortle.isMoving) {
+                this.data.set('slow', 3000);
+                this.tortle.isMoving = false;
+                this.tortle.body.setVelocityX(this.tortle.body.body.velocity.x * 0.35);
+                this.clock = this.time.delayedCall(this.data.values.slow, () => {
+                    this.tortle.isMoving = true;
+                }, [], this);
+            }
+            else {
+                this.data.values.slow = 3000 + (this.data.values.slow - this.clock.getElapsed());
+                this.time.removeAllEvents();
+                console.log(this.data.values.slow);
+                this.time.delayedCall(this.data.values.slow, () => {
+                    this.tortle.isMoving = true;
+                }, [], this);
+            }
         }
         loseLevel() {
             this.cameras.main.shake(100, 0.005);
@@ -649,6 +673,7 @@ var Carrot;
             this.player.properties.isWinning = true;
             this.player.setVelocityX(0);
             this.tortle.body.setVelocityX(0);
+            this.tortle.body.anims.play('tort_idle', true);
             this.tortle.isMoving = false;
             this.player.anims.play('idle', true);
             this.time.delayedCall(1000, () => {

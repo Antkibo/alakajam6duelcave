@@ -1,20 +1,23 @@
 module Carrot {
     export class Main extends Phaser.Scene {
         private player:     Player;
-        private tortle:     {
+        private tortle: 
+        {
             body?:      Phaser.Physics.Arcade.Sprite,
             isMoving?:  boolean
         };
         private font:       Phaser.Types.GameObjects.BitmapText.RetroFontConfig;
         private carrot:     Phaser.Physics.Arcade.StaticGroup;
-        private audio: {
+        private audio: 
+        {
             theme?:     any,
             lava?:      any,
             win?:       any,
             carrot?:    any,
             jump?:      any
         };
-        private controls: {
+        private controls: 
+        {
             cursor?: Phaser.Types.Input.Keyboard.CursorKeys,
             a?:      Phaser.Input.Keyboard.Key,
             d?:      Phaser.Input.Keyboard.Key,
@@ -23,10 +26,14 @@ module Carrot {
         private map:        any[];
         private tileset:    any[];
         private level:      any[];
-        private respawn:    {
+        private respawn:    
+        {
             x?: number,
             y?: number
         }    
+        private carrotScore:    any;
+        private levelScore:     any;
+        private clock:          any;
 
         constructor() {
             super({
@@ -76,11 +83,11 @@ module Carrot {
                     this.data.set('levelCounter', 1);
                 }
 
+                this.data.set('tempCarrotScore', 0);
+
             // Font
             this.font = this.cache.json.get('font_json');
-            this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(
-                this, this.font)
-            );
+            this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
 
             // Controls
             this.controls.cursor = this.input.keyboard.createCursorKeys();
@@ -146,11 +153,14 @@ module Carrot {
 
             // Start Level
             this.startLevel();
+            
+            // Score
+            this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
+            this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
 
             // Events
             this.registry.events.once('beatLevel', () => {
-                this.audio.win.play();
-                
+                this.audio.win.play();  
             });  
 
             this.registry.events.once('tortLost', () => {
@@ -161,8 +171,6 @@ module Carrot {
             this.time.delayedCall(1500, () => {
                 this.tortle.isMoving = true;
             }, [], this);
-
-            
         }
 
         update(): void {
@@ -472,6 +480,8 @@ module Carrot {
             
             this.time.delayedCall(2000, () => {
                 this.data.values.levelCounter++;
+                this.data.values.levelScore++;
+                this.data.values.carrotScore += this.data.values.tempCarrotScore;
                 this.data.values.tortleSpeed += 2.5;
                 this.restartScene();
             }, [], this);
@@ -480,8 +490,27 @@ module Carrot {
 
         private gotCarrot(element1, element2) {
             element2.destroy();
-            this.data.values.carrotScore++;
+            this.data.values.tempCarrotScore++;
+            this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));
             this.audio.carrot.play();
+
+            this.tortle.body.anims.play('tort_hit', true);
+            
+            if (this.tortle.isMoving) {
+                this.data.set('slow', 3000);
+                this.tortle.isMoving = false;
+                this.tortle.body.setVelocityX(this.tortle.body.body.velocity.x * 0.35);
+                this.clock = this.time.delayedCall(this.data.values.slow, () => {
+                    this.tortle.isMoving = true;
+                }, [], this);
+            } else {
+                this.data.values.slow = 3000 + (this.data.values.slow - this.clock.getElapsed());
+                this.time.removeAllEvents();
+                console.log(this.data.values.slow);
+                this.time.delayedCall(this.data.values.slow, () => {
+                    this.tortle.isMoving = true;
+                }, [], this);
+            }
         }
 
         private loseLevel() {
@@ -491,6 +520,7 @@ module Carrot {
             this.player.properties.isWinning = true;
             this.player.setVelocityX(0);
             this.tortle.body.setVelocityX(0);
+            this.tortle.body.anims.play('tort_idle', true);
             this.tortle.isMoving = false;
             
 
