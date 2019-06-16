@@ -3,7 +3,9 @@ module Carrot {
       private enter: Phaser.Input.Keyboard.Key;
 
       constructor() {
-        super({ key: 'Menu'});
+        super({
+          key: 'Menu'
+        });
       }
 
       create(): void {
@@ -12,7 +14,7 @@ module Carrot {
 
         // Add some Text
         this.add.text(100, 50, 'Carrot Cave');
-        this.add.text(100, 60, 'Press Enter');
+        this.add.text(100, 80, 'Press Enter');
       }
 
       update(): void {

@@ -18,7 +18,7 @@ var Carrot;
                 title: 'Carrot Cave',
                 type: Phaser.AUTO,
                 scene: [
-                    Carrot.Boot, Carrot.Main, Carrot.Pause
+                    Carrot.Boot, Carrot.Menu, Carrot.Main, Carrot.Pause, Carrot.WinScreen
                 ]
             };
             this.gameRef = new Phaser.Game(CONFIG);
@@ -233,7 +233,7 @@ var Carrot;
             /////////////////////////////////////////////////////////////
             // Start Main after loading
             this.load.on('complete', () => {
-                this.scene.start('Main');
+                this.scene.start('Menu');
             });
         }
     }
@@ -325,7 +325,7 @@ var Carrot;
             this.audio.lava.setVolume(0.3 * 0.5);
             this.audio.jump.setVolume(0.5);
             this.audio.win.setVolume(0.5 * 0.5);
-            // Change music rate 
+            // Change music rate
             this.audio.theme.play('', {
                 rate: this.data.get('rateSpeed')
             });
@@ -519,7 +519,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 9, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(19, 9, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 12, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -535,7 +535,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(7, 12, 2, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(10, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(14, 12, 5, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -554,7 +554,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(7, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(15, 12, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -568,7 +568,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(13, 9, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(17, 11, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(19, 7, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -582,7 +582,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(15, 7, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(16, 9, 2, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(18, 11, 1, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -604,7 +604,7 @@ var Carrot;
                     this.level[level - 1].tilemap.setTileLocationCallback(16, 6, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 5, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(20, 9, 1, 1, this.fallOnLava, this);
-                    // Win Callback 
+                    // Win Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
@@ -694,6 +694,29 @@ var Carrot;
 })(Carrot || (Carrot = {}));
 var Carrot;
 (function (Carrot) {
+    class Menu extends Phaser.Scene {
+        constructor() {
+            super({
+                key: 'Menu'
+            });
+        }
+        create() {
+            // Create controls (Enter for now)
+            this.enter = this.input.keyboard.addKey('ENTER');
+            // Add some Text
+            this.add.text(100, 50, 'Carrot Cave');
+            this.add.text(100, 80, 'Press Enter');
+        }
+        update() {
+            if (Phaser.Input.Keyboard.JustDown(this.enter)) {
+                this.scene.start('Main');
+            }
+        }
+    }
+    Carrot.Menu = Menu;
+})(Carrot || (Carrot = {}));
+var Carrot;
+(function (Carrot) {
     class Pause extends Phaser.Scene {
         constructor() {
             super({
@@ -713,5 +736,26 @@ var Carrot;
         }
     }
     Carrot.Pause = Pause;
+})(Carrot || (Carrot = {}));
+var Carrot;
+(function (Carrot) {
+    class WinScreen extends Phaser.Scene {
+        constructor() {
+            super({
+                key: 'WinScreen'
+            });
+        }
+    }
+    Carrot.WinScreen = WinScreen;
+    {
+        /*
+          text =
+          'Win! You Rock!'
+          'Press Start to Continue'
+        */
+        //this.add.text(100, 50, '');
+        //this.add.text();
+    }
+    update: void {};
 })(Carrot || (Carrot = {}));
 //# sourceMappingURL=game.js.map

@@ -1,39 +1,35 @@
 module Carrot {
     export class Main extends Phaser.Scene {
         private player:     Player;
-        private tortle: 
-        {
+        private tortle:   {
             body?:      Phaser.Physics.Arcade.Sprite,
             isMoving?:  boolean
         };
         private font:       Phaser.Types.GameObjects.BitmapText.RetroFontConfig;
         private carrot:     Phaser.Physics.Arcade.StaticGroup;
-        private audio: 
-        {
+        private audio:    {
             theme?:     any,
             lava?:      any,
             win?:       any,
             carrot?:    any,
             jump?:      any
         };
-        private controls: 
-        {
+        private controls: {
             cursor?: Phaser.Types.Input.Keyboard.CursorKeys,
             a?:      Phaser.Input.Keyboard.Key,
             d?:      Phaser.Input.Keyboard.Key,
             enter?:  Phaser.Input.Keyboard.Key
         };
-        private map:        any[];
-        private tileset:    any[];
-        private level:      any[];
-        private respawn:    
-        {
+        private map:       any[];
+        private tileset:   any[];
+        private level:     any[];
+        private respawn:  {
             x?: number,
             y?: number
-        }    
-        private carrotScore:    any;
-        private levelScore:     any;
-        private clock:          any;
+        };
+        private carrotScore:  any;
+        private levelScore:   any;
+        private clock:        any;
 
         constructor() {
             super({
@@ -73,7 +69,7 @@ module Carrot {
                 // Music speed
                 if (!this.data.get('rateSpeed')) {
                     this.data.set('rateSpeed', 1.0);
-                } 
+                }
                 // Tortle speed
                 if (!this.data.get('tortleSpeed')) {
                     this.data.set('tortleSpeed', 10);
@@ -112,7 +108,7 @@ module Carrot {
             this.tileset[4] = this.map[4].addTilesetImage('tileset', 'caveTiles');
             this.tileset[5] = this.map[5].addTilesetImage('tileset', 'caveTiles');
             this.tileset[6] = this.map[6].addTilesetImage('tileset', 'caveTiles');
-    
+
             // Carrots
             this.carrot = this.physics.add.staticGroup();
             this.anims.fromJSON(this.cache.json.get('carrot_anim'));
@@ -132,8 +128,8 @@ module Carrot {
             this.audio.jump.setVolume(0.5);
             this.audio.win.setVolume(0.5 * 0.5);
 
-                // Change music rate 
-                this.audio.theme.play('', { 
+                // Change music rate
+                this.audio.theme.play('', {
                     rate: this.data.get('rateSpeed')
                 });
 
@@ -144,7 +140,7 @@ module Carrot {
             this.tortle.body = this.physics.add.sprite(20, 27, 'tortuga');
             this.anims.fromJSON(this.cache.json.get('tortuga_anim'));
             this.tortle.body.setGravityY(250);
-            this.tortle.body.setDepth(0.1);  
+            this.tortle.body.setDepth(0.1);
             this.tortle.body.anims.play('tort_idle', true);
             this.tortle.isMoving = false;
 
@@ -153,18 +149,18 @@ module Carrot {
 
             // Start Level
             this.startLevel();
-            
+
             // Score
             this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
             this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
 
             // Events
             this.registry.events.once('beatLevel', () => {
-                this.audio.win.play();  
-            });  
+                this.audio.win.play();
+            });
 
             this.registry.events.once('tortLost', () => {
-                this.tortle.body.anims.play('tort_lose', true); 
+                this.tortle.body.anims.play('tort_lose', true);
                 this.tortle.body.anims.stopOnRepeat();
             })
 
@@ -186,7 +182,7 @@ module Carrot {
                     this.tortle.body.setVelocityX(0);
                     this.tortle.body.anims.play('tort_idle', true);
                 }
-            } 
+            }
 
             // Player controls
             if (Phaser.Input.Keyboard.JustDown(this.controls.enter)) {
@@ -207,7 +203,7 @@ module Carrot {
                 } else {
                     this.player.startMovement();
                 }
-                
+
                 if (this.controls.cursor.space.isDown) {
                     if (this.controls.cursor.space.getDuration() >= 1500) {
                         this.player.startMovement('megaJump');
@@ -217,7 +213,7 @@ module Carrot {
                         this.player.startMovement('jump');
                     }
                 }
-            } 
+            }
         }
 
         private startLevel(): void {
@@ -340,11 +336,11 @@ module Carrot {
             switch(level) {
                 case 1:
                     // Lava Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(5, 12, 2, 1, this.fallOnLava, this);  
+                    this.level[level - 1].tilemap.setTileLocationCallback(5, 12, 2, 1, this.fallOnLava, this);
                     // Win Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);  
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);  
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 2:
                     // Lava Callback
@@ -355,10 +351,10 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 9, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(19, 9, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 12, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 3:
                     this.level[level - 1].tilemap.setTileLocationCallback(2, 5, 3, 1, this.fallOnLava, this);
@@ -371,10 +367,10 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(7, 12, 2, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(10, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(14, 12, 5, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 4:
                     this.level[level - 1].tilemap.setTileLocationCallback(0, 8, 1, 1, this.fallOnLava, this);
@@ -390,10 +386,10 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(7, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(11, 12, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(15, 12, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 5:
                     this.level[level - 1].tilemap.setTileLocationCallback(0, 9, 1, 1, this.fallOnLava, this);
@@ -404,10 +400,10 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(13, 9, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(17, 11, 3, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(19, 7, 3, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 6:
                     this.level[level - 1].tilemap.setTileLocationCallback(2, 12, 3, 1, this.fallOnLava, this);
@@ -418,10 +414,10 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(15, 7, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(16, 9, 2, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(18, 11, 1, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 case 7:
                     this.level[level - 1].tilemap.setTileLocationCallback(3, 9, 1, 1, this.fallOnLava, this);
@@ -440,14 +436,14 @@ module Carrot {
                     this.level[level - 1].tilemap.setTileLocationCallback(16, 6, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(21, 5, 1, 1, this.fallOnLava, this);
                     this.level[level - 1].tilemap.setTileLocationCallback(20, 9, 1, 1, this.fallOnLava, this);
-                    // Win Callback 
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this); 
+                    // Win Callback
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 11, 1, 1, this.winLevel, this);
                     // Lose Callback
-                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this); 
+                    this.level[level - 1].tilemap.setTileLocationCallback(21, 1, 1, 1, this.loseLevel, this);
                     break;
                 default:
                     break;
-            }          
+            }
         }
 
         private fallOnLava() {
@@ -462,12 +458,12 @@ module Carrot {
                 this.player.properties.isDying = false;
             }, [], this);
         }
-        
+
         private winLevel() {
             this.player.properties.isWinning = true;
             this.tortle.body.setVelocityX(0);
             this.tortle.isMoving = false;
-            
+
             this.player.setGravityY(500);
             this.player.setVelocityX(0);
             this.audio.theme.stop();
@@ -477,7 +473,7 @@ module Carrot {
             this.time.delayedCall(300, () => {
                 this.registry.events.emit('beatLevel');
             }, [], this);
-            
+
             this.time.delayedCall(2000, () => {
                 this.data.values.levelCounter++;
                 this.data.values.levelScore++;
@@ -495,7 +491,7 @@ module Carrot {
             this.audio.carrot.play();
 
             this.tortle.body.anims.play('tort_hit', true);
-            
+
             if (this.tortle.isMoving) {
                 this.data.set('slow', 3000);
                 this.tortle.isMoving = false;
@@ -522,7 +518,7 @@ module Carrot {
             this.tortle.body.setVelocityX(0);
             this.tortle.body.anims.play('tort_idle', true);
             this.tortle.isMoving = false;
-            
+
 
             this.player.anims.play('idle', true);
             this.time.delayedCall(1000, () => {
