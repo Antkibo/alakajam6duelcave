@@ -3,7 +3,7 @@
 module Carrot {
     export class GameStart {
         static gameRef: Phaser.Game;
-        
+
         public static RunGame() {
             const CONFIG = {
                 width: 352,
@@ -20,7 +20,7 @@ module Carrot {
                 title: 'Carrot Cave',
                 type: Phaser.AUTO,
                 scene: <any> [
-                    Boot, Main, Pause
+                    Boot, Menu, Main, Pause
                 ]
             }
             this.gameRef = new Phaser.Game(CONFIG);

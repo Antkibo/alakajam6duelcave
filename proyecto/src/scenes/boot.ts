@@ -13,7 +13,7 @@ module Carrot {
         }
 
         preload(): void {
-            
+
             /////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////
@@ -109,7 +109,7 @@ module Carrot {
 
             // Start Main after loading
             this.load.on('complete', () => {
-                this.scene.start('Main')
+                this.scene.start('Menu');
             })
         }
     }
