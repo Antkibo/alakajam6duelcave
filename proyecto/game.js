@@ -18,7 +18,7 @@ var Carrot;
                 title: 'Carrot Cave',
                 type: Phaser.AUTO,
                 scene: [
-                    Carrot.Boot, Carrot.Menu, Carrot.Main, Carrot.Pause, Carrot.WinScreen
+                    Carrot.Boot, Carrot.MainMenu, Carrot.Main, Carrot.Pause, Carrot.WinScreen
                 ]
             };
             this.gameRef = new Phaser.Game(CONFIG);
@@ -233,7 +233,7 @@ var Carrot;
             /////////////////////////////////////////////////////////////
             // Start Main after loading
             this.load.on('complete', () => {
-                this.scene.start('Menu');
+                this.scene.start('MainMenu');
             });
         }
     }
@@ -341,7 +341,14 @@ var Carrot;
             // Character
             this.player = new Carrot.Player(this, this.respawn.x, this.respawn.y, 'bugs');
             // Start Level
-            this.startLevel();
+            if (this.data.get('levelCounter') <= this.map.length) {
+                this.startLevel();
+            }
+            else {
+                this.data.set('levelCounter', 1);
+                this.sound.remove(this.audio.theme);
+                this.scene.start('WinScreen');
+            }
             // Score
             this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
             this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
@@ -694,10 +701,10 @@ var Carrot;
 })(Carrot || (Carrot = {}));
 var Carrot;
 (function (Carrot) {
-    class Menu extends Phaser.Scene {
+    class MainMenu extends Phaser.Scene {
         constructor() {
             super({
-                key: 'Menu'
+                key: 'MainMenu'
             });
         }
         create() {
@@ -713,7 +720,7 @@ var Carrot;
             }
         }
     }
-    Carrot.Menu = Menu;
+    Carrot.MainMenu = MainMenu;
 })(Carrot || (Carrot = {}));
 var Carrot;
 (function (Carrot) {
@@ -745,17 +752,21 @@ var Carrot;
                 key: 'WinScreen'
             });
         }
+        create() {
+            this.enter = this.input.keyboard.addKey('ENTER');
+            // Fonts
+            this.font = this.cache.json.get('font_json');
+            this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
+            // Add Some text
+            this.add.bitmapText(this.cameras.main.width / 2 - 50, this.cameras.main.height / 2, 'font', "You Win! You Rock!".toUpperCase());
+            this.add.bitmapText(this.cameras.main.width / 2 - 50, this.cameras.main.height / 2 + 20, 'font', "Press Start to Continue".toUpperCase());
+        }
+        update() {
+            if (Phaser.Input.Keyboard.JustDown(this.enter)) {
+                this.scene.start('Main');
+            }
+        }
     }
     Carrot.WinScreen = WinScreen;
-    {
-        /*
-          text =
-          'Win! You Rock!'
-          'Press Start to Continue'
-        */
-        //this.add.text(100, 50, '');
-        //this.add.text();
-    }
-    update: void {};
 })(Carrot || (Carrot = {}));
 //# sourceMappingURL=game.js.map

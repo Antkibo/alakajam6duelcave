@@ -1,35 +1,35 @@
 module Carrot {
     export class Main extends Phaser.Scene {
-        private player:     Player;
-        private tortle:   {
-            body?:      Phaser.Physics.Arcade.Sprite,
-            isMoving?:  boolean
+        private player: Player;
+        private tortle: {
+            body?: Phaser.Physics.Arcade.Sprite,
+            isMoving?: boolean
         };
-        private font:       Phaser.Types.GameObjects.BitmapText.RetroFontConfig;
-        private carrot:     Phaser.Physics.Arcade.StaticGroup;
-        private audio:    {
-            theme?:     any,
-            lava?:      any,
-            win?:       any,
-            carrot?:    any,
-            jump?:      any
+        private font: Phaser.Types.GameObjects.BitmapText.RetroFontConfig;
+        private carrot: Phaser.Physics.Arcade.StaticGroup;
+        private audio: {
+            theme?: any,
+            lava?: any,
+            win?: any,
+            carrot?: any,
+            jump?: any
         };
         private controls: {
             cursor?: Phaser.Types.Input.Keyboard.CursorKeys,
-            a?:      Phaser.Input.Keyboard.Key,
-            d?:      Phaser.Input.Keyboard.Key,
-            enter?:  Phaser.Input.Keyboard.Key
+            a?: Phaser.Input.Keyboard.Key,
+            d?: Phaser.Input.Keyboard.Key,
+            enter?: Phaser.Input.Keyboard.Key
         };
-        private map:       any[];
-        private tileset:   any[];
-        private level:     any[];
-        private respawn:  {
+        private map: any[];
+        private tileset: any[];
+        private level: any[];
+        private respawn: {
             x?: number,
             y?: number
         };
-        private carrotScore:  any;
-        private levelScore:   any;
-        private clock:        any;
+        private carrotScore: any;
+        private levelScore: any;
+        private clock: any;
 
         constructor() {
             super({
@@ -48,8 +48,8 @@ module Carrot {
         create(): void {
             // Canvas center
             const center = {
-                x: <number> this.cameras.main.width / 2,
-                y: <number> this.cameras.main.height / 2
+                x: <number>this.cameras.main.width / 2,
+                y: <number>this.cameras.main.height / 2
             }
 
             this.respawn = {
@@ -58,28 +58,28 @@ module Carrot {
             }
 
             // Initialize data
-                // Carrots acquired
-                if (!this.data.get('carrotScore')) {
-                    this.data.set('carrotScore', 0);
-                }
-                // Levels done
-                if (!this.data.get('levelScore')) {
-                    this.data.set('levelScore', 0);
-                }
-                // Music speed
-                if (!this.data.get('rateSpeed')) {
-                    this.data.set('rateSpeed', 1.0);
-                }
-                // Tortle speed
-                if (!this.data.get('tortleSpeed')) {
-                    this.data.set('tortleSpeed', 10);
-                }
+            // Carrots acquired
+            if (!this.data.get('carrotScore')) {
+                this.data.set('carrotScore', 0);
+            }
+            // Levels done
+            if (!this.data.get('levelScore')) {
+                this.data.set('levelScore', 0);
+            }
+            // Music speed
+            if (!this.data.get('rateSpeed')) {
+                this.data.set('rateSpeed', 1.0);
+            }
+            // Tortle speed
+            if (!this.data.get('tortleSpeed')) {
+                this.data.set('tortleSpeed', 10);
+            }
 
-                if (!this.data.get('levelCounter')) {
-                    this.data.set('levelCounter', 1);
-                }
+            if (!this.data.get('levelCounter')) {
+                this.data.set('levelCounter', 1);
+            }
 
-                this.data.set('tempCarrotScore', 0);
+            this.data.set('tempCarrotScore', 0);
 
             // Font
             this.font = this.cache.json.get('font_json');
@@ -128,10 +128,10 @@ module Carrot {
             this.audio.jump.setVolume(0.5);
             this.audio.win.setVolume(0.5 * 0.5);
 
-                // Change music rate
-                this.audio.theme.play('', {
-                    rate: this.data.get('rateSpeed')
-                });
+            // Change music rate
+            this.audio.theme.play('', {
+                rate: this.data.get('rateSpeed')
+            });
 
             // Background image
             this.add.image(center.x, center.y, 'background');
@@ -148,7 +148,14 @@ module Carrot {
             this.player = new Player(this, this.respawn.x, this.respawn.y, 'bugs');
 
             // Start Level
-            this.startLevel();
+            if (this.data.get('levelCounter') <= this.map.length) {
+                this.startLevel();
+            } else {
+                this.data.set('levelCounter', 1);
+                this.sound.remove(this.audio.theme);
+                this.scene.start('WinScreen')
+            }
+
 
             // Score
             this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
@@ -218,9 +225,9 @@ module Carrot {
 
         private startLevel(): void {
             const level = this.data.get('levelCounter');
-            switch(level) {
+            switch (level) {
                 case 1:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
                     // Carrot setup
                     this.carrot.create(184, 104, 'carrot');
@@ -233,7 +240,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 2:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
                     this.carrot.create(56, 137, 'carrot');
@@ -248,7 +255,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 3:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
                     this.carrot.create(6, 99, 'carrot');
@@ -263,7 +270,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 4:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
                     this.carrot.create(7, 78, 'carrot');
@@ -278,7 +285,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 5:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
 
@@ -293,7 +300,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 6:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
                     this.carrot.create(55, 110, 'carrot');
@@ -307,7 +314,7 @@ module Carrot {
                     this.setSpecialTiles(level);
                     break;
                 case 7:
-                    this.level[level - 1]= this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
+                    this.level[level - 1] = this.map[level - 1].createStaticLayer('Tiles', this.tileset[level - 1]);
                     this.level[level - 1].setCollisionByProperty({ collides: true });
 
                     this.carrot.create(117, 174, 'carrot');
@@ -333,7 +340,7 @@ module Carrot {
         }
 
         private setSpecialTiles(level: number): void {
-            switch(level) {
+            switch (level) {
                 case 1:
                     // Lava Callback
                     this.level[level - 1].tilemap.setTileLocationCallback(5, 12, 2, 1, this.fallOnLava, this);
@@ -484,7 +491,7 @@ module Carrot {
 
         }
 
-        private gotCarrot(element1, element2) {
+        private gotCarrot(element1: undefined, element2) {
             element2.destroy();
             this.data.values.tempCarrotScore++;
             this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));

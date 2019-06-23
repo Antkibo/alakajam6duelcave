@@ -1,10 +1,10 @@
 module Carrot {
-    export class Menu extends Phaser.Scene {
+    export class MainMenu extends Phaser.Scene {
       private enter: Phaser.Input.Keyboard.Key;
 
       constructor() {
         super({
-          key: 'Menu'
+          key: 'MainMenu'
         });
       }
 

@@ -109,7 +109,7 @@ module Carrot {
 
             // Start Main after loading
             this.load.on('complete', () => {
-                this.scene.start('Menu');
+                this.scene.start('MainMenu');
             })
         }
     }
