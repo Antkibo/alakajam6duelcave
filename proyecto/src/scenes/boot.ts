@@ -38,6 +38,14 @@ module Carrot {
                 this.load.json('numbers_json', 'numbers.json');
                 this.load.image('numbers', 'numbers.png');
 
+            // Start menu and end
+                this.load.image('title_img', 'title_img.png');
+                this.load.json('title_anim', 'title_anim.json');
+                this.load.atlas('title', 'title.png', 'title_atlas.json');
+
+            // Loading level and carrots banner
+                this.load.image('levels', 'levels.png');
+                this.load.image('carrots', 'carrots.png');
 
             // Audio
                 this.load.audio('theme', 'audio/platformer.ogg');

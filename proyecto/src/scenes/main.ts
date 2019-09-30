@@ -165,11 +165,13 @@ module Carrot {
                 this.scene.start('WinScreen')
             }
 
-
-            const test_score = this.add.bitmapText(100, 100, 'numbers', '1235')
             // Score
-            this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
-            this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
+
+            this.add.image(40 - 2, 8, 'carrots');
+            this.carrotScore = this.add.bitmapText(78, 2, 'numbers', 'CARROTS: ' + this.data.values.carrotScore);
+
+            this.add.image(150 - 8, 8, 'levels');
+            this.levelScore = this.add.bitmapText(172, 2, 'numbers', 'LEVELS: ' + this.data.values.levelScore);
 
             // Events
             this.registry.events.once('beatLevel', () => {
@@ -521,7 +523,6 @@ module Carrot {
             } else {
                 this.data.values.slow = 3000 + (this.data.values.slow - this.clock.getElapsed());
                 this.time.removeAllEvents();
-                console.log(this.data.values.slow);
                 this.time.delayedCall(this.data.values.slow, () => {
                     this.tortle.isMoving = true;
                 }, [], this);

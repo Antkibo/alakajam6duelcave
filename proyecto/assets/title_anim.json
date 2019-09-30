@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "blink",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "title",
+                    "frame": "title-anim138x70_0"
+                },
+                {
+                    "key": "title",
+                    "frame": "title-anim138x70_1"
+                },
+                {
+                    "key": "title",
+                    "frame": "title-anim138x70_2"
+                },
+                {
+                    "key": "title",
+                    "frame": "title-anim138x70_3"
+                }
+            ]
+        }
+    ]
+}

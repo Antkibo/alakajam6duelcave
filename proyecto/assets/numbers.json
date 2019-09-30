@@ -1,8 +1,8 @@
 {
   "image": "numbers",
-  "width": 16,
-  "height": 16,
-  "chars": "123456789",
+  "width": 12,
+  "height": 12,
+  "chars": "0123456789",
   "offset": {
       "x": 0,
       "y": 0
