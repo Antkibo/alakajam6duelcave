@@ -43,9 +43,10 @@ module Carrot {
                 this.load.json('title_anim', 'title_anim.json');
                 this.load.atlas('title', 'title.png', 'title_atlas.json');
 
-            // Loading level and carrots banner
+            // Loading, endgame, level counter and carrots counter
                 this.load.image('levels', 'levels.png');
                 this.load.image('carrots', 'carrots.png');
+                this.load.image('endgame', 'endgame.png');
 
             // Audio
                 this.load.audio('theme', 'audio/platformer.ogg');
@@ -85,8 +86,8 @@ module Carrot {
             this.progressBox.fillRect(10, center.y + 30, center.x * 2 - 20, center.y - 80);
 
             // Add Loading text
-            this.loadText = this.add.text(center.x - 50, center.y, 'Loading');
             // loadCount tracks number of periods added after Loading
+            this.loadText = this.add.text(this.cameras.main.width / 2 + 70, this.cameras.main.height / 2, ' ');
             this.loadCount = 0;
 
             // Add three periods to Loading, reset, and loop
@@ -95,10 +96,10 @@ module Carrot {
                 callback: () => {
                     this.loadCount++;
                     if (this.loadCount > 3) {
-                        this.loadText.setText('Loading');
+                        this.loadText.setText(' ');
                         this.loadCount = 0;
                     } else {
-                        this.loadText.setText('Loading' + '.'.repeat(this.loadCount));
+                        this.loadText.setText(' ' + '.'.repeat(this.loadCount));
                     }
                 },
                 loop: true
@@ -119,6 +120,7 @@ module Carrot {
 
             // Start Main after loading
             this.load.on('complete', () => {
+                this.scene.stop('PreBoot');
                 this.scene.start('MainMenu');
             })
         }

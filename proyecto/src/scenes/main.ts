@@ -64,6 +64,10 @@ module Carrot {
             if (!this.data.get('carrotScore')) {
                 this.data.set('carrotScore', 0);
             }
+
+            if (!this.data.get('timesBeaten')) {
+                this.data.set('timesBeaten', 1);
+            }
             // Levels done
             if (!this.data.get('levelScore')) {
                 this.data.set('levelScore', 0);
@@ -161,6 +165,7 @@ module Carrot {
                 this.startLevel();
             } else {
                 this.data.set('levelCounter', 1);
+                this.data.set('timesBeaten', this.data.get('timesBeaten') * 2);
                 this.sound.remove(this.audioManager.getByName('theme'));
                 this.scene.start('WinScreen')
             }
@@ -175,6 +180,7 @@ module Carrot {
 
             // Events
             this.registry.events.once('beatLevel', () => {
+                this.data.set('rateSpeed', this.data.get('rateSpeed')+0.05);
                 this.audioManager.getByName('winSound').play();
             });
 
@@ -507,7 +513,7 @@ module Carrot {
 
         private gotCarrot(element1: undefined, element2) {
             element2.destroy();
-            this.data.values.tempCarrotScore++;
+            this.data.values.tempCarrotScore += 1 * this.data.get('timesBeaten');
             this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));
             this.audioManager.getByName('power').play();
 

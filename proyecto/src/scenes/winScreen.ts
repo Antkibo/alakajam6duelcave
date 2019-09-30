@@ -13,12 +13,13 @@ module Carrot {
       this.enter = this.input.keyboard.addKey('ENTER');
 
       // Fonts
-      this.font = this.cache.json.get('font_json');
-      this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
+      // this.font = this.cache.json.get('font_json');
+      // this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
 
-      // Add Some text
-      this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2, 'font', "You Win! You Rock!".toUpperCase());
-      this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2 + 20, 'font', "Press Start to Continue".toUpperCase());
+      this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'endgame');
+      // // Add Some text
+      // this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2, 'font', "You Win! You Rock!".toUpperCase());
+      // this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2 + 20, 'font', "Press Start to Continue".toUpperCase());
     }
 
     update(): void {

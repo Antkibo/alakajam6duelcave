@@ -18,7 +18,7 @@ var Carrot;
                 title: 'Carrot Cave',
                 type: Phaser.AUTO,
                 scene: [
-                    Carrot.Boot, Carrot.MainMenu, Carrot.Main, Carrot.Pause, Carrot.WinScreen
+                    Carrot.PreBoot, Carrot.Boot, Carrot.MainMenu, Carrot.Main, Carrot.Pause, Carrot.WinScreen
                 ]
             };
             this.gameRef = new Phaser.Game(CONFIG);
@@ -175,9 +175,10 @@ var Carrot;
             this.load.image('title_img', 'title_img.png');
             this.load.json('title_anim', 'title_anim.json');
             this.load.atlas('title', 'title.png', 'title_atlas.json');
-            // Loading level and carrots banner
+            // Loading, endgame, level counter and carrots counter
             this.load.image('levels', 'levels.png');
             this.load.image('carrots', 'carrots.png');
+            this.load.image('endgame', 'endgame.png');
             // Audio
             this.load.audio('theme', 'audio/platformer.ogg');
             this.load.audio('jumpSound', 'audio/jump.ogg');
@@ -209,8 +210,8 @@ var Carrot;
             this.progressBox.fillStyle(this.orange.color, 0.5);
             this.progressBox.fillRect(10, center.y + 30, center.x * 2 - 20, center.y - 80);
             // Add Loading text
-            this.loadText = this.add.text(center.x - 50, center.y, 'Loading');
             // loadCount tracks number of periods added after Loading
+            this.loadText = this.add.text(this.cameras.main.width / 2 + 70, this.cameras.main.height / 2, ' ');
             this.loadCount = 0;
             // Add three periods to Loading, reset, and loop
             const timeConfig = {
@@ -218,11 +219,11 @@ var Carrot;
                 callback: () => {
                     this.loadCount++;
                     if (this.loadCount > 3) {
-                        this.loadText.setText('Loading');
+                        this.loadText.setText(' ');
                         this.loadCount = 0;
                     }
                     else {
-                        this.loadText.setText('Loading' + '.'.repeat(this.loadCount));
+                        this.loadText.setText(' ' + '.'.repeat(this.loadCount));
                     }
                 },
                 loop: true
@@ -239,6 +240,7 @@ var Carrot;
             /////////////////////////////////////////////////////////////
             // Start Main after loading
             this.load.on('complete', () => {
+                this.scene.stop('PreBoot');
                 this.scene.start('MainMenu');
             });
         }
@@ -274,6 +276,9 @@ var Carrot;
             // Carrots acquired
             if (!this.data.get('carrotScore')) {
                 this.data.set('carrotScore', 0);
+            }
+            if (!this.data.get('timesBeaten')) {
+                this.data.set('timesBeaten', 1);
             }
             // Levels done
             if (!this.data.get('levelScore')) {
@@ -357,6 +362,7 @@ var Carrot;
             }
             else {
                 this.data.set('levelCounter', 1);
+                this.data.set('timesBeaten', this.data.get('timesBeaten') * 2);
                 this.sound.remove(this.audioManager.getByName('theme'));
                 this.scene.start('WinScreen');
             }
@@ -367,6 +373,7 @@ var Carrot;
             this.levelScore = this.add.bitmapText(172, 2, 'numbers', 'LEVELS: ' + this.data.values.levelScore);
             // Events
             this.registry.events.once('beatLevel', () => {
+                this.data.set('rateSpeed', this.data.get('rateSpeed') + 0.05);
                 this.audioManager.getByName('winSound').play();
             });
             this.registry.events.once('tortLost', () => {
@@ -665,7 +672,7 @@ var Carrot;
         }
         gotCarrot(element1, element2) {
             element2.destroy();
-            this.data.values.tempCarrotScore++;
+            this.data.values.tempCarrotScore += 1 * this.data.get('timesBeaten');
             this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));
             this.audioManager.getByName('power').play();
             this.tortle.body.anims.play('tort_hit', true);
@@ -766,6 +773,25 @@ var Carrot;
 })(Carrot || (Carrot = {}));
 var Carrot;
 (function (Carrot) {
+    class PreBoot extends Phaser.Scene {
+        constructor() {
+            super({
+                key: 'PreBoot'
+            });
+        }
+        preload() {
+            this.load.setPath('./assets/');
+            this.load.image('loading', 'loading.png');
+        }
+        create() {
+            this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'loading');
+            this.scene.launch('Boot');
+        }
+    }
+    Carrot.PreBoot = PreBoot;
+})(Carrot || (Carrot = {}));
+var Carrot;
+(function (Carrot) {
     class WinScreen extends Phaser.Scene {
         constructor() {
             super({
@@ -775,11 +801,12 @@ var Carrot;
         create() {
             this.enter = this.input.keyboard.addKey('ENTER');
             // Fonts
-            this.font = this.cache.json.get('font_json');
-            this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
-            // Add Some text
-            this.add.bitmapText(this.cameras.main.width / 2 - 50, this.cameras.main.height / 2, 'font', "You Win! You Rock!".toUpperCase());
-            this.add.bitmapText(this.cameras.main.width / 2 - 50, this.cameras.main.height / 2 + 20, 'font', "Press Start to Continue".toUpperCase());
+            // this.font = this.cache.json.get('font_json');
+            // this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
+            this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'endgame');
+            // // Add Some text
+            // this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2, 'font', "You Win! You Rock!".toUpperCase());
+            // this.add.bitmapText(this.cameras.main.width/2 - 50, this.cameras.main.height/2 + 20, 'font', "Press Start to Continue".toUpperCase());
         }
         update() {
             if (Phaser.Input.Keyboard.JustDown(this.enter)) {
