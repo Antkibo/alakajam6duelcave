@@ -53,6 +53,7 @@ module Carrot {
                 this.load.audio('lava', 'audio/lava.ogg');
                 this.load.audio('power', 'audio/power.ogg');
                 this.load.audio('winSound', 'audio/win.ogg');
+                this.load.audio('menu', 'audio/menu.ogg');
 
             // Maps
                 this.load.image('caveTiles', 'tileset.png');
