@@ -35,21 +35,22 @@ module Carrot {
             // Bitmap
                 this.load.json('font_json', 'font.json');
                 this.load.image('font', 'font.png');
+                this.load.json('numbers_json', 'numbers.json');
+                this.load.image('numbers', 'numbers.png');
+
+
             // Audio
                 this.load.audio('theme', 'audio/platformer.ogg');
                 this.load.audio('jumpSound', 'audio/jump.ogg');
                 this.load.audio('lava', 'audio/lava.ogg');
                 this.load.audio('power', 'audio/power.ogg');
                 this.load.audio('winSound', 'audio/win.ogg');
+
             // Maps
                 this.load.image('caveTiles', 'tileset.png');
-                this.load.tilemapTiledJSON('level0', 'maps/level0.json');
-                this.load.tilemapTiledJSON('level1', 'maps/level1.json');
-                this.load.tilemapTiledJSON('level2', 'maps/level2.json');
-                this.load.tilemapTiledJSON('level3', 'maps/level3.json');
-                this.load.tilemapTiledJSON('level4', 'maps/level4.json');
-                this.load.tilemapTiledJSON('level5', 'maps/level5.json');
-                this.load.tilemapTiledJSON('level6', 'maps/level6.json');
+                for (let i = 0; i <= 6; i++) {
+                    this.load.tilemapTiledJSON(`level${i}`, `maps/level${i}.json`);
+                }
 
             /////////////////////////////////////////////////////////////
             //////////////////////LOADING SCREEN/////////////////////////

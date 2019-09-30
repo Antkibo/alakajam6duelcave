@@ -169,6 +169,8 @@ var Carrot;
             // Bitmap
             this.load.json('font_json', 'font.json');
             this.load.image('font', 'font.png');
+            this.load.json('numbers_json', 'numbers.json');
+            this.load.image('numbers', 'numbers.png');
             // Audio
             this.load.audio('theme', 'audio/platformer.ogg');
             this.load.audio('jumpSound', 'audio/jump.ogg');
@@ -177,13 +179,9 @@ var Carrot;
             this.load.audio('winSound', 'audio/win.ogg');
             // Maps
             this.load.image('caveTiles', 'tileset.png');
-            this.load.tilemapTiledJSON('level0', 'maps/level0.json');
-            this.load.tilemapTiledJSON('level1', 'maps/level1.json');
-            this.load.tilemapTiledJSON('level2', 'maps/level2.json');
-            this.load.tilemapTiledJSON('level3', 'maps/level3.json');
-            this.load.tilemapTiledJSON('level4', 'maps/level4.json');
-            this.load.tilemapTiledJSON('level5', 'maps/level5.json');
-            this.load.tilemapTiledJSON('level6', 'maps/level6.json');
+            for (let i = 0; i <= 6; i++) {
+                this.load.tilemapTiledJSON(`level${i}`, `maps/level${i}.json`);
+            }
             /////////////////////////////////////////////////////////////
             //////////////////////LOADING SCREEN/////////////////////////
             //////////////////////LOADING SCREEN/////////////////////////
@@ -288,6 +286,8 @@ var Carrot;
             // Font
             this.font = this.cache.json.get('font_json');
             this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, this.font));
+            this.numbFont = this.cache.json.get('numbers_json');
+            this.cache.bitmapFont.add('numbers', Phaser.GameObjects.RetroFont.Parse(this, this.numbFont));
             // Controls
             this.controls.cursor = this.input.keyboard.createCursorKeys();
             this.controls.a = this.input.keyboard.addKey('A');
@@ -313,20 +313,23 @@ var Carrot;
             this.carrot = this.physics.add.staticGroup();
             this.anims.fromJSON(this.cache.json.get('carrot_anim'));
             // Audio
-            this.sound.pauseOnBlur = false;
-            this.audio.theme = this.sound.add('theme', { loop: true });
-            this.audio.lava = this.sound.add('lava', { loop: false });
-            this.audio.jump = this.sound.add('jumpSound', { loop: false });
-            this.audio.win = this.sound.add('winSound', { loop: false });
-            this.audio.carrot = this.sound.add('power', { loop: false });
+            // this.audio.theme = this.sound.add('theme', { loop: true });
+            // this.audio.lava = this.sound.add('lava', { loop: false });
+            // this.audio.jump = this.sound.add('jumpSound', { loop: false });
+            // this.audio.win = this.sound.add('winSound', { loop: false });
+            // this.audio.carrot = this.sound.add('power', { loop: false });
             // Configure audio
-            this.audio.theme.setVolume(0.5);
-            this.audio.carrot.setVolume(0.3 * 0.5);
-            this.audio.lava.setVolume(0.3 * 0.5);
-            this.audio.jump.setVolume(0.5);
-            this.audio.win.setVolume(0.5 * 0.5);
+            // this.audio.theme.setVolume(0.5);
+            // this.audio.carrot.setVolume(0.3 * 0.5);
+            // this.audio.lava.setVolume(0.3 * 0.5);
+            // this.audio.jump.setVolume(0.5);
+            // this.audio.win.setVolume(0.5 * 0.5);
             // Change music rate
-            this.audio.theme.play('', {
+            // this.audio.theme.play('', {
+            //     rate: this.data.get('rateSpeed')
+            // });
+            this.audioManager = new Carrot.AudioManager(this.game, this);
+            this.audioManager.getByName('theme').play('', {
                 rate: this.data.get('rateSpeed')
             });
             // Background image
@@ -346,17 +349,19 @@ var Carrot;
             }
             else {
                 this.data.set('levelCounter', 1);
-                this.sound.remove(this.audio.theme);
+                this.sound.remove(this.audioManager.getByName('theme'));
                 this.scene.start('WinScreen');
             }
+            const test_score = this.add.bitmapText(100, 100, 'numbers', '1235');
             // Score
             this.carrotScore = this.add.bitmapText(40 - 8, 8, 'font', 'CARROTS: ' + this.data.values.carrotScore);
             this.levelScore = this.add.bitmapText(200 - 8, 8, 'font', 'LEVELS: ' + this.data.values.levelScore);
             // Events
             this.registry.events.once('beatLevel', () => {
-                this.audio.win.play();
+                this.audioManager.getByName('winSound').play();
             });
             this.registry.events.once('tortLost', () => {
+                this.audioManager.pause('theme');
                 this.tortle.body.anims.play('tort_lose', true);
                 this.tortle.body.anims.stopOnRepeat();
             });
@@ -504,7 +509,7 @@ var Carrot;
             }
         }
         restartScene() {
-            this.sound.remove(this.audio.theme);
+            this.sound.remove(this.audioManager.getByName('theme'));
             this.scene.restart();
         }
         setSpecialTiles(level) {
@@ -624,7 +629,7 @@ var Carrot;
             this.player.properties.isFalling = false;
             this.player.properties.isDying = true;
             this.player.disableBody();
-            this.audio.lava.play();
+            this.audioManager.getByName('lava').play();
             this.time.delayedCall(1000, () => {
                 this.controls.cursor.space.isDown = false;
                 this.player.enableBody(true, this.respawn.x, this.respawn.y, true, true);
@@ -637,7 +642,6 @@ var Carrot;
             this.tortle.isMoving = false;
             this.player.setGravityY(500);
             this.player.setVelocityX(0);
-            this.audio.theme.stop();
             this.registry.events.emit('tortLost');
             this.time.delayedCall(300, () => {
                 this.registry.events.emit('beatLevel');
@@ -654,7 +658,7 @@ var Carrot;
             element2.destroy();
             this.data.values.tempCarrotScore++;
             this.carrotScore.setText('CARROTS: ' + (this.data.values.carrotScore + this.data.values.tempCarrotScore));
-            this.audio.carrot.play();
+            this.audioManager.getByName('power').play();
             this.tortle.body.anims.play('tort_hit', true);
             if (this.tortle.isMoving) {
                 this.data.set('slow', 3000);
@@ -676,7 +680,7 @@ var Carrot;
         loseLevel() {
             this.cameras.main.shake(100, 0.005);
             this.scene.get('Main').sound.stopAll();
-            this.audio.lava.play();
+            this.audioManager.getByName('lava').play();
             this.player.properties.isWinning = true;
             this.player.setVelocityX(0);
             this.tortle.body.setVelocityX(0);
@@ -768,5 +772,67 @@ var Carrot;
         }
     }
     Carrot.WinScreen = WinScreen;
+})(Carrot || (Carrot = {}));
+const config = [{
+        name: "jumpSound",
+        configuration: {
+            volume: 0.5,
+            loop: false
+        }
+    },
+    {
+        name: "theme",
+        configuration: {
+            volume: 0.5,
+            loop: true
+        }
+    },
+    {
+        name: "power",
+        configuration: {
+            volume: 0.3 * 0.5,
+            loop: false
+        }
+    },
+    {
+        name: "lava",
+        configuration: {
+            volume: 0.3 * 0.5,
+            loop: false
+        }
+    },
+    {
+        name: "winSound",
+        configuration: {
+            volume: 0.5 * 0.5,
+            loop: false
+        }
+    }
+];
+var Carrot;
+(function (Carrot) {
+    class AudioManager extends Phaser.Sound.BaseSoundManager {
+        constructor(game, scene) {
+            super(game);
+            this.scene = scene;
+            this.audio = [];
+            this.addSound();
+            this.scene.sound.pauseOnBlur = false;
+        }
+        addSound() {
+            config.forEach((element, index) => {
+                this.audio[index] = this.scene.sound.add(element.name, element.configuration);
+            });
+        }
+        getByName(name) {
+            let audioForSearch = this.audio.find((element) => element.key == name);
+            return audioForSearch;
+        }
+        pause(name) {
+            let audioForSearch = this.audio.find((element) => element.key == name);
+            audioForSearch.stop();
+        }
+    }
+    Carrot.AudioManager = AudioManager;
 })(Carrot || (Carrot = {}));
 //# sourceMappingURL=game.js.map

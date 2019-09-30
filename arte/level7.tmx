@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="22" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="13">
  <tileset firstgid="1" name="tileset" tilewidth="16" tileheight="16" tilecount="70" columns="7">
-  <image source="alakajam6duelcave/proyecto/assets/tileset.png" width="112" height="160"/>
+  <image source="../proyecto/assets/tileset.png" width="112" height="160"/>
  </tileset>
  <layer id="1" name="Tile Layer 1" width="22" height="13">
   <data encoding="csv">
@@ -9,15 +9,67 @@
 1,18,2,17,2,18,2,17,2,18,2,17,18,18,2,17,18,2,18,2,34,7,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 25,23,25,23,24,23,25,23,25,23,24,23,25,23,25,23,24,23,25,23,25,23,
-0,0,0,0,0,7,0,0,0,0,7,0,0,0,1,36,2147483649,0,0,0,0,0,
-0,0,0,57,59,0,0,0,0,0,0,0,0,0,8,44,2147483656,0,0,7,0,0,
+0,0,0,0,0,53,0,0,0,0,53,0,0,0,1,36,2147483649,0,0,0,0,0,
+0,0,0,57,59,0,0,0,0,0,0,0,0,0,8,44,2147483656,0,0,53,0,0,
 0,0,0,64,66,0,53,3,17,2147483651,0,0,0,0,29,33,2147483677,0,0,0,0,0,
-0,7,0,46,46,0,53,10,11,2147483658,0,40,0,0,50,22,2147483698,0,0,0,0,0,
-0,28,0,52,52,0,0,0,0,0,0,47,0,0,50,22,2147483698,0,0,0,0,0,
+0,40,0,46,46,0,53,10,11,2147483658,0,40,0,0,50,22,2147483698,0,0,0,0,0,
+0,28,0,52,52,0,0,0,0,39,0,47,0,0,50,22,2147483698,0,0,0,0,0,
 0,0,0,1,2147483651,0,0,0,0,0,52,54,0,0,55,56,2147483703,0,0,0,0,0,
 0,0,0,8,43,5,6,6,6,6,2147483653,51,0,0,0,0,0,0,0,0,27,0,
-18,14,17,29,31,12,13,2147483661,13,2147483661,2147483660,51,57,59,2,7,18,2,5,2147483653,34,7,
+18,14,17,29,31,12,13,2147483661,13,2147483661,2147483660,51,57,59,2,2147483650,18,2,5,2147483653,34,7,
 8,9,9,50,22,19,20,2147483668,20,2147483668,2147483667,22,12,2147483660,9,9,9,9,12,2147483660,9,9
 </data>
  </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" x="23.25" y="119.25">
+   <properties>
+    <property name="name" value="carrot"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="2" x="87.75" y="73.75">
+   <properties>
+    <property name="name" value="carrot"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="3" x="166.75" y="73.25">
+   <properties>
+    <property name="name" value="carrot"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" x="247.75" y="182.25">
+   <properties>
+    <property name="name" value="carrot"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="5" x="311.25" y="90.75">
+   <properties>
+    <property name="name" value="carrot"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="8" x="80.5" y="177" width="95.5" height="30.5">
+   <properties>
+    <property name="name" value="lava"/>
+   </properties>
+  </object>
+  <object id="10" x="48" y="96.3636" width="31.8182" height="15.4545">
+   <properties>
+    <property name="name" value="lava"/>
+   </properties>
+  </object>
+  <object id="11" x="192.25" y="192.5" width="31.25" height="15.25">
+   <properties>
+    <property name="name" value="lava"/>
+   </properties>
+  </object>
+  <object id="12" x="288.25" y="192.25" width="31.25" height="15.25">
+   <properties>
+    <property name="name" value="lava"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
