@@ -48,6 +48,16 @@ module Carrot {
                 this.load.image('carrots', 'carrots.png');
                 this.load.image('endgame', 'endgame.png');
 
+            // Player lives
+                this.load.image('live', 'live.png');
+
+            // Game over screen
+                this.load.image('gameOver', 'gameover352-208.png');
+
+            // Instructions
+                this.load.json('instructions_anim', 'instructions_anim.json');
+                this.load.atlas('instructions', 'instructions.png', 'instructions_atlas.json');
+
             // Audio
                 this.load.audio('theme', 'audio/platformer.ogg');
                 this.load.audio('jumpSound', 'audio/jump.ogg');

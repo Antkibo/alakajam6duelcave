@@ -59,15 +59,25 @@ module Carrot {
                 y: center.y * 2 - 10
             }
 
+            
+
             // Initialize data
             // Carrots acquired
             if (!this.data.get('carrotScore')) {
                 this.data.set('carrotScore', 0);
             }
 
+            // Times player has done all levels
             if (!this.data.get('timesBeaten')) {
                 this.data.set('timesBeaten', 1);
             }
+
+            // Amount of live of player
+
+            if (!this.data.get('livesCount')) {
+                this.data.set('livesCount', 5);
+            }
+
             // Levels done
             if (!this.data.get('levelScore')) {
                 this.data.set('levelScore', 0);
@@ -122,24 +132,7 @@ module Carrot {
             this.carrot = this.physics.add.staticGroup();
             this.anims.fromJSON(this.cache.json.get('carrot_anim'));
 
-            // Audio
-            // this.audio.theme = this.sound.add('theme', { loop: true });
-            // this.audio.lava = this.sound.add('lava', { loop: false });
-            // this.audio.jump = this.sound.add('jumpSound', { loop: false });
-            // this.audio.win = this.sound.add('winSound', { loop: false });
-            // this.audio.carrot = this.sound.add('power', { loop: false });
-
-            // Configure audio
-            // this.audio.theme.setVolume(0.5);
-            // this.audio.carrot.setVolume(0.3 * 0.5);
-            // this.audio.lava.setVolume(0.3 * 0.5);
-            // this.audio.jump.setVolume(0.5);
-            // this.audio.win.setVolume(0.5 * 0.5);
-
-            // Change music rate
-            // this.audio.theme.play('', {
-            //     rate: this.data.get('rateSpeed')
-            // });
+            // Audio Manager
 
             this.audioManager = new AudioManager(this.game, this);
             this.audioManager.getByName('theme').play('', {
@@ -161,6 +154,9 @@ module Carrot {
             this.player = new Player(this, this.respawn.x, this.respawn.y, 'bugs');
 
             // Start Level
+
+            
+
             if (this.data.get('levelCounter') <= this.map.length) {
                 this.startLevel();
             } else {
@@ -172,14 +168,34 @@ module Carrot {
 
             // Score
 
-            this.add.image(40 - 2, 8, 'carrots');
-            this.carrotScore = this.add.bitmapText(78, 2, 'numbers', 'CARROTS: ' + this.data.values.carrotScore);
+            const lives = this.add.group();
 
-            this.add.image(150 - 8, 8, 'levels');
-            this.levelScore = this.add.bitmapText(172, 2, 'numbers', 'LEVELS: ' + this.data.values.levelScore);
+            for (let i = 0, posX = 250; i < this.data.get('livesCount'); i++, posX += 12) {
+                let newObj = lives.create(posX, 8, 'live');
+            }
+
+            const carrot_text = this.add.image(112 - 2, 8, 'carrots');
+            this.carrotScore = this.add.bitmapText(153, 2, 'numbers', 'CARROTS: ' + this.data.values.carrotScore);
+
+            const level_text = this.add.image(232 - 8, 8, 'levels');
+            this.levelScore = this.add.bitmapText(254, 2, 'numbers', 'LEVELS: ' + this.data.values.levelScore);
+
+            let container = this.add.container(-50, 0, [
+                carrot_text,
+                level_text,
+                this.carrotScore,
+                this.levelScore,
+            ]);
+
+
+
+
 
             // Events
             this.registry.events.once('beatLevel', () => {
+                
+
+                this.audioManager.pause('theme');
                 this.data.set('rateSpeed', this.data.get('rateSpeed')+0.05);
                 this.audioManager.getByName('winSound').play();
             });
@@ -502,10 +518,17 @@ module Carrot {
             }, [], this);
 
             this.time.delayedCall(2000, () => {
+                if (this.data.get('livesCount') < 5) {
+                    const lives = this.data.get('livesCount') + 1;
+                    console.log(lives);
+                    this.data.set('livesCount', lives);
+                }
+
                 this.data.values.levelCounter++;
                 this.data.values.levelScore++;
                 this.data.values.carrotScore += this.data.values.tempCarrotScore;
                 this.data.values.tortleSpeed += 2.5;
+                this.audioManager.pause('theme');
                 this.restartScene();
             }, [], this);
 
@@ -545,10 +568,26 @@ module Carrot {
             this.tortle.body.anims.play('tort_idle', true);
             this.tortle.isMoving = false;
 
+            
+
 
             this.player.anims.play('idle', true);
             this.time.delayedCall(1000, () => {
-                this.restartScene();
+                const lives = (this.data.get('livesCount')) - 1;
+                console.log(lives);
+                this.data.set('livesCount', lives);
+
+                if (this.data.get('livesCount') == 0) {
+                    this.data.set('carrotScore', 0);
+                    this.data.set('levelCounter', 1);
+                    this.data.set('levelScore', 0);
+                    this.data.set('timesBeaten', 1);
+                    this.data.set('rateSpeed', 1.0);
+                    this.data.set('tortleSpeed', 10);
+                    this.scene.start('GameOver');
+                } else {
+                    this.restartScene();
+                }
             }, [], this);
         }
 

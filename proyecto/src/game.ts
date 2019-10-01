@@ -20,7 +20,7 @@ module Carrot {
                 title: 'Carrot Cave',
                 type: Phaser.AUTO,
                 scene: <any> [
-                    PreBoot, Boot, MainMenu, Main, Pause, WinScreen
+                    PreBoot, Boot, MainMenu, Main, Pause, WinScreen, GameOver
                 ]
             }
             this.gameRef = new Phaser.Game(CONFIG);
