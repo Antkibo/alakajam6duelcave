@@ -520,7 +520,6 @@ module Carrot {
             this.time.delayedCall(2000, () => {
                 if (this.data.get('livesCount') < 5) {
                     const lives = this.data.get('livesCount') + 1;
-                    console.log(lives);
                     this.data.set('livesCount', lives);
                 }
 
@@ -574,7 +573,6 @@ module Carrot {
             this.player.anims.play('idle', true);
             this.time.delayedCall(1000, () => {
                 const lives = (this.data.get('livesCount')) - 1;
-                console.log(lives);
                 this.data.set('livesCount', lives);
 
                 if (this.data.get('livesCount') == 0) {
