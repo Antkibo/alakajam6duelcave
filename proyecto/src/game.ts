@@ -6,9 +6,13 @@ module Carrot {
 
         public static RunGame() {
             const CONFIG = {
-                width: 352,
-                height: 208,
-                parent: 'container',
+                scale: {
+                    mode: Phaser.Scale.FIT,
+                    parent: 'container',
+                    autoCenter: Phaser.Scale.CENTER_BOTH,
+                    width: 352,
+                    height: 208
+                },
                 pixelArt: true,
                 physics: {
                     default: 'arcade',
