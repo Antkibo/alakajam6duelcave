@@ -695,7 +695,6 @@ var Carrot;
             this.time.delayedCall(2000, () => {
                 if (this.data.get('livesCount') < 5) {
                     const lives = this.data.get('livesCount') + 1;
-                    console.log(lives);
                     this.data.set('livesCount', lives);
                 }
                 this.data.values.levelCounter++;
@@ -740,7 +739,6 @@ var Carrot;
             this.player.anims.play('idle', true);
             this.time.delayedCall(1000, () => {
                 const lives = (this.data.get('livesCount')) - 1;
-                console.log(lives);
                 this.data.set('livesCount', lives);
                 if (this.data.get('livesCount') == 0) {
                     this.data.set('carrotScore', 0);
@@ -845,9 +843,11 @@ var Carrot;
         }
         preload() {
             this.load.setPath('./assets/');
+            this.load.image('logo', 'logo-transparant.png');
             this.load.image('loading', 'loading.png');
         }
         create() {
+            this.add.image(this.cameras.main.centerX, this.cameras.main.centerY - 60, 'logo');
             this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'loading');
             this.scene.launch('Boot');
         }
