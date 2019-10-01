@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "move",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "instructions",
+                    "frame": "instructions-sheet352-208_0"
+                },
+                {
+                    "key": "instructions",
+                    "frame": "instructions-sheet352-208_1"
+                },
+                {
+                    "key": "instructions",
+                    "frame": "instructions-sheet352-208_2"
+                },
+                {
+                    "key": "instructions",
+                    "frame": "instructions-sheet352-208_3"
+                }
+            ]
+        }
+    ]
+}
