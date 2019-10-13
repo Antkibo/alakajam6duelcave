@@ -16,6 +16,11 @@
 <body>
     <div id="container"></div>
     <script src='https://cdn1.kongregate.com/javascripts/kongregate_api.js'></script>
+    <script>
+        kongregateAPI.loadAPI(function() {
+            window.kongregate = kongregateAPI.getAPI();
+        });
+    </script>
     <script src="./dist/phaser.js"></script>
     <script src="./game.js"></script>
 </body>

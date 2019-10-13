@@ -59,8 +59,6 @@ module Carrot {
                 y: center.y * 2 - 10
             }
 
-            
-
             // Initialize data
             // Carrots acquired
             if (!this.data.get('carrotScore')) {
@@ -155,11 +153,10 @@ module Carrot {
 
             // Start Level
 
-            
-
             if (this.data.get('levelCounter') <= this.map.length) {
                 this.startLevel();
             } else {
+                kongregate.stats.submit('Game Complete', 1);
                 this.data.set('levelCounter', 1);
                 this.data.set('timesBeaten', this.data.get('timesBeaten') * 2);
                 this.sound.remove(this.audioManager.getByName('theme'));
@@ -187,14 +184,9 @@ module Carrot {
                 this.levelScore,
             ]);
 
-
-
-
-
             // Events
             this.registry.events.once('beatLevel', () => {
                 
-
                 this.audioManager.pause('theme');
                 this.data.set('rateSpeed', this.data.get('rateSpeed')+0.05);
                 this.audioManager.getByName('winSound').play();
@@ -505,7 +497,6 @@ module Carrot {
             this.player.properties.isWinning = true;
             this.tortle.body.setVelocityX(0);
             this.tortle.isMoving = false;
-
             this.player.setGravityY(500);
             this.player.setVelocityX(0);
             
@@ -527,6 +518,10 @@ module Carrot {
                 this.data.values.levelScore++;
                 this.data.values.carrotScore += this.data.values.tempCarrotScore;
                 this.data.values.tortleSpeed += 2.5;
+
+                kongregate.stats.submit('Levels', this.data.values.levelScore);
+                kongregate.stats.submit('Carrots', this.data.values.carrotScore);
+
                 this.audioManager.pause('theme');
                 this.restartScene();
             }, [], this);
