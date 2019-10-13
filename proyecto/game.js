@@ -384,6 +384,7 @@ var Carrot;
                 this.startLevel();
             }
             else {
+                kongregate.stats.submit('Game Complete', 1);
                 this.data.set('levelCounter', 1);
                 this.data.set('timesBeaten', this.data.get('timesBeaten') * 2);
                 this.sound.remove(this.audioManager.getByName('theme'));
@@ -705,6 +706,8 @@ var Carrot;
                 this.data.values.levelScore++;
                 this.data.values.carrotScore += this.data.values.tempCarrotScore;
                 this.data.values.tortleSpeed += 2.5;
+                kongregate.stats.submit('Levels', this.data.values.levelScore);
+                kongregate.stats.submit('Carrots', this.data.values.carrotScore);
                 this.audioManager.pause('theme');
                 this.restartScene();
             }, [], this);

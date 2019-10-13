@@ -1,0 +1,16 @@
+{
+  "name": "proyecto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "game.js",
+  "dependencies": {
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
